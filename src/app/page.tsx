@@ -1,23 +1,12 @@
-"use client";
+import { auth } from "@/auth";
 
-import { logIn, logOut } from "@/actions/auth.actions";
-
-export default function Home() {
+export default async function Home() {
+  // const user = await auth();
+  // console.log("user", user);
   return (
     <div className="flex flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <h1>homepage</h1>
-      <button
-        onClick={async () => await logIn()}
-        className="bg-green-300 px-5 py-3 rounded-2xl my-3 cursor-pointer"
-      >
-        login
-      </button>
-      <button
-        onClick={async () => logOut()}
-        className="bg-red-300 px-5 py-3 rounded-2xl my-3 cursor-pointer"
-      >
-        logout
-      </button>
+      <h1 className="text-4xl">homepage</h1>
+      {/* {user && <pre>{JSON.stringify(user)}</pre>} */}
     </div>
   );
 }
