@@ -7,6 +7,8 @@ import { auth } from "@/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Separator } from "../ui/separator";
+import { headers } from "next/headers";
+import Navlist from "./Navlist";
 
 const Navbar = async () => {
   const session = await auth();
@@ -17,8 +19,7 @@ const Navbar = async () => {
         <Link href={"/"}>TravelPlanner 😎 </Link>
       </div>
       <div className="right flex justify-between items-center gap-5">
-        <Link href={"/"}>nav1</Link>
-        <Link href={"/"}>nav2</Link>
+        <Navlist />
 
         {session ? (
           <div className="flex flex-row flex-wrap items-center gap-12 cursor-pointer">
