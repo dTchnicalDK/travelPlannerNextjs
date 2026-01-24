@@ -1,9 +1,9 @@
-// getting user data inside server component
+//# getting user data inside server component
 //   await auth()
 
 //inside client component
 // useSession()
 
-// Component type	Correct API
+//# Currentt API
 // Server Component	headers()
 // Client Component	usePathname(), useSearchParams()

@@ -3,10 +3,20 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { EventCard } from "./EventCard";
 import Link from "next/link";
+import { getAllTrips, Trips } from "@/actions/createTrip";
 
 const DashboardPage = async () => {
   const session = await auth();
-  const tours: Array<string> = []; //temp
+
+  let tours: Trips[] = [];
+  //getting all trips already created
+  if (session && session.user) {
+    const result = await getAllTrips(session);
+    if (result) {
+      tours = result;
+    }
+  }
+  // const tours: Array<string> = []; //temp
   return (
     <div className="min-h-full py-10 px-5 ">
       {session?.user ? (
@@ -26,11 +36,13 @@ const DashboardPage = async () => {
             </Button>
           </Link>
         </div>
-        {tours.length >= 1 ? (
+        {tours && tours.length >= 1 ? (
           <div>
             <h1 className="text-2xl my-3">your upcoming tours are :-</h1>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2">
-              <EventCard />
+              {tours.map((tour) => (
+                <EventCard key={tour.id} tour={tour} />
+              ))}
             </div>
           </div>
         ) : (
