@@ -18,6 +18,13 @@ export type Trips = {
   updatedAt: Date;
 };
 
+export type CreateTripResponse = {
+  success: boolean;
+  message?: string;
+  trip?: Trips;
+  error?: string;
+};
+
 /////////////////function to get all trips///////////////////
 export const getAllTrips = async (
   session: Session,
@@ -60,6 +67,21 @@ export const createNewTrip = async (formData: FormData) => {
   const startDate = new Date(rawStartDate);
   const endDate = new Date(rawEndDate);
 
+  // Validate dates
+  if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+    return {
+      success: false,
+      message: "Invalid date format",
+    };
+  }
+
+  if (startDate >= endDate) {
+    return {
+      success: false,
+      message: "End date must be after start date",
+    };
+  }
+
   try {
     const createdTrip = await prisma.trip.create({
       data: {
@@ -71,10 +93,23 @@ export const createNewTrip = async (formData: FormData) => {
         imageUrl,
       },
     });
-  } catch (error) {
-    return console.log("creation error", error);
-  }
 
-  revalidatePath("/dashboard");
-  redirect("/dashboard");
+    return {
+      success: true,
+      message: "Trip created successfully!",
+      trip: createdTrip,
+    };
+  } catch (error) {
+    console.log("creation error", error);
+    return {
+      success: false,
+      message: "Failed to create trip",
+      error: error instanceof Error ? error.message : "Unknown error",
+    };
+  }
 };
+
+////////function to revalidate dashboard
+export async function revalidateDashboard() {
+  revalidatePath("/dashboard");
+}
