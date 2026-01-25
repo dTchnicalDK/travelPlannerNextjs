@@ -43,7 +43,7 @@ export const getAllTrips = async (
 export const createNewTrip = async (formData: FormData) => {
   //checking if user logged in or not
   const session = await auth();
-  if (!session || !session.user) {
+  if (!session || !session.user || !session.user.id) {
     throw new Error("Login first");
   }
   //validating data collected or not
@@ -51,8 +51,9 @@ export const createNewTrip = async (formData: FormData) => {
   const description = formData.get("description")?.toString();
   const rawStartDate = formData.get("startdate")?.toString();
   const rawEndDate = formData.get("enddate")?.toString();
+  const imageUrl = formData.get("imageUrl")?.toString();
 
-  if (!title || !description || !rawStartDate || !rawEndDate) {
+  if (!title || !description || !rawStartDate || !rawEndDate || !imageUrl) {
     throw new Error("all fields are mandatory");
   }
   //actually creating trip
@@ -61,7 +62,14 @@ export const createNewTrip = async (formData: FormData) => {
 
   try {
     const createdTrip = await prisma.trip.create({
-      data: { title, description, startDate, endDate, userId: session.user.id },
+      data: {
+        title,
+        description,
+        startDate,
+        endDate,
+        userId: session.user.id,
+        imageUrl,
+      },
     });
   } catch (error) {
     return console.log("creation error", error);

@@ -70,11 +70,11 @@ model Trip {
   id          String   @id @default(cuid())
   title       String
   description String
-  imageUrl    String?
+  imageUrl    String
   startDate   DateTime
   endDate     DateTime
-  user        User?    @relation(fields: [userId], references: [id])
-  userId      String?
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
