@@ -38,7 +38,9 @@ const DashboardPage = async () => {
         </div>
         {tours && tours.length >= 1 ? (
           <div>
-            <h1 className="text-2xl my-3">your upcoming tours are :-</h1>
+            <h1 className="text-2xl my-3">
+              `you have ${tours.length} trips, 3 tours are upcoming! :-`
+            </h1>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2">
               {tours.map((tour) => (
                 <EventCard key={tour.id} tour={tour} />
