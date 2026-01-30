@@ -2,11 +2,14 @@ import { Check, Cross, CrosshairIcon, Ellipsis, X } from "lucide-react";
 import React from "react";
 import { SelectSeparator } from "../ui/select";
 import { Separator } from "@radix-ui/react-separator";
-import OrderCard from "./OrderCard";
+import CardPickupStore from "./CardPickupStore";
+import CardPickupDayTime from "./CardPickupDayTime";
 
 const OrderSummary = () => {
   const completed = [1, 2];
   console.log("completed", completed.length);
+  let PickupSchedule = Date.now().toLocaleString || "";
+
   return (
     //container
     <div className=" max-w-100 bg-white text-black flex flex-col  ">
@@ -88,9 +91,20 @@ const OrderSummary = () => {
       </div>
       <Separator />
       <div className="grid grid-cols-1 ml-0">
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
+        <CardPickupStore
+          title="Pickup Store"
+          address="Knapps conrner 1997 E BeltLine NE Grand Rapida MI 49504"
+        />
+        <CardPickupStore
+          title="Pickup Date and time"
+          address="Friday, 10/01/2026"
+        />
+        <CardPickupStore
+          title="Pickup Person"
+          address="Mr. john Smith the great"
+        />
+
+        {/* <CardPickupDayTime day={PickupSchedule}/> */}
       </div>
     </div>
   );
