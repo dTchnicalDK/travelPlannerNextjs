@@ -9,14 +9,18 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Separator } from "../ui/separator";
 import { headers } from "next/headers";
 import Navlist from "./Navlist";
+import { Plane } from "lucide-react";
 
 const Navbar = async () => {
   const session = await auth();
 
   return (
     <div className="w-full font-medium text-2xl flex justify-between items-center gap-5 px-10 border-b-2 py-3">
-      <div className="left flex gap-2">
-        <Link href={"/"}>TravelPlanner 😎 </Link>
+      <div className="left flex gap-2 items-center">
+        <Plane className="text-orange-500" />
+        <Link href={"/"} className="text-teal-500">
+          TravelPlanner
+        </Link>
       </div>
       <div className="right flex justify-between items-center gap-5">
         <Navlist />
