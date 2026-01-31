@@ -14,12 +14,12 @@ const OrderSummary = () => {
     //container
     <div className=" max-w-100 bg-white text-black flex flex-col  ">
       {/* //title section */}
-      <div className="bg-sky-600 text-white w-full h-15 flex justify-start items-center gap-7 px-10">
+      <div className="bg-sky-700 text-white w-full h-15 flex justify-start items-center gap-7 px-10">
         <X />
         <p className="text-2xl font-bold">checkout</p>
       </div>
 
-      {/* //progress */}
+      {/* //progress section*/}
       <div className="bg- white text-black h-15 flex justify-between gap-2 items-center my-2 mx-5 relative">
         <div className="progress-line h-2 w-74 bg-gray-300 absolute top-3.5 z-0 mx-8"></div>
 
@@ -82,7 +82,7 @@ const OrderSummary = () => {
           <small className="text-gray-700">Review Order</small>
         </div>
       </div>
-      {/* //payment details */}
+      {/* //payment details section*/}
       <Separator />
       <div className="bg-gray-100">
         <h1 className="mx-6 text-2xl font-bold text-gray-600 h-15 flex items-center">
@@ -94,17 +94,9 @@ const OrderSummary = () => {
         <CardPickupStore
           title="Pickup Store"
           address="Knapps conrner 1997 E BeltLine NE Grand Rapida MI 49504"
+          link={true}
+          linkText="Edit"
         />
-        <CardPickupStore
-          title="Pickup Date and time"
-          address="Friday, 10/01/2026"
-        />
-        <CardPickupStore
-          title="Pickup Person"
-          address="Mr. john Smith the great"
-        />
-
-        {/* <CardPickupDayTime day={PickupSchedule}/> */}
       </div>
     </div>
   );
