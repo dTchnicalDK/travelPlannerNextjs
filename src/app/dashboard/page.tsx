@@ -8,17 +8,40 @@ import { getAllTrips, Trips } from "@/actions/createTrip";
 const DashboardPage = async () => {
   const session = await auth();
 
+  ////function to sort upcoming and past tourt
   let tours: Trips[] = [];
-  //getting all trips already created
+  let upcomingTrips: Trips[] = [];
+  let PastTrips: Trips[] = [];
+
   if (session && session.user) {
-    const result = await getAllTrips(session);
-    if (result) {
-      tours = result;
+    const tripResponse = await getAllTrips(session); //fetching all trips already created
+    if (tripResponse && Array.isArray(tripResponse)) {
+      // tours = tripResponse;
+      tours = tripResponse.sort((a: Trips, b: Trips) => {
+        return (
+          new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+        );
+      });
+    }
+
+    if (tours && tours.length > 0) {
+      let today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      tours.forEach((trip) => {
+        if (trip.startDate > today) {
+          upcomingTrips.push(trip);
+        } else {
+          PastTrips.push(trip);
+        }
+      });
     }
   }
+
   // const tours: Array<string> = []; //temp
   return (
     <div className="min-h-full py-10 px-5 ">
+      {/* ////////title and add new trip section */}
       {session?.user ? (
         <h1 className="text-2xl text-center font-bold flex justify-center gap-2">
           Welcome Mr./Mrs.
@@ -28,6 +51,7 @@ const DashboardPage = async () => {
         <h1 className="text-2xl text-center font-bold">Welcome Guest!</h1>
       )}
 
+      {/* //////////////tour section//////// */}
       <div className="content">
         <div className="flex justify-end">
           <Link href="dashboard/add-new">
@@ -39,12 +63,24 @@ const DashboardPage = async () => {
         {tours && tours.length >= 1 ? (
           <div>
             <h1 className="text-2xl my-3">
-              `you have ${tours.length} trips, 3 tours are upcoming! :-`
+              {`you have ${tours.length} trips, 3 tours are upcoming! :-`}
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2">
-              {tours.map((tour) => (
+              {upcomingTrips.map((tour) => (
                 <EventCard key={tour.id} tour={tour} />
               ))}
+            </div>
+
+            {/* ////Already visited/past trips */}
+            <div>
+              <h1 className="text-2xl my-3 text-gray-500">
+                {`Congratulations! for your ${PastTrips.length} last trip you already visited:-`}
+              </h1>
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                {PastTrips.map((tour) => (
+                  <EventCard key={tour.id} tour={tour} />
+                ))}
+              </div>
             </div>
           </div>
         ) : (

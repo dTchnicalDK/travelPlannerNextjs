@@ -7,7 +7,7 @@ import CardPickupDayTime from "./CardPickupDayTime";
 
 const OrderSummary = () => {
   const completed = [1, 2];
-  console.log("completed", completed.length);
+  // console.log("completed", completed.length);
   let PickupSchedule = Date.now().toLocaleString || "";
 
   return (
