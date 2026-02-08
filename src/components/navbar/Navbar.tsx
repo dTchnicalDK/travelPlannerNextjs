@@ -19,7 +19,7 @@ const Navbar = async () => {
       <div className="left flex gap-2 items-center">
         <Plane className="text-orange-500" />
         <Link href={"/"} className="text-teal-500">
-          TravelPlanner
+          Travel<span className="text-orange-500">Planner</span>
         </Link>
       </div>
       <div className="right flex justify-between items-center gap-5">

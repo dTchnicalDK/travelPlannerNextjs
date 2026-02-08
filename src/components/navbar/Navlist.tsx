@@ -4,24 +4,24 @@ import { usePathname } from "next/navigation";
 import React from "react";
 
 const Navlist = () => {
+  const listArray = ["home", "dashboard"];
   const currentUrl = usePathname();
   if (!currentUrl) {
     return;
   }
   return (
     <>
-      <Link
-        href={"/dashboard"}
-        className={currentUrl === "/dashboard" ? "text-black" : "text-gray-400"}
-      >
-        Dashboard
-      </Link>
-      <Link
-        href={"/"}
-        className={currentUrl === "/" ? "text-black" : "text-gray-400"}
-      >
-        nav2
-      </Link>
+      {listArray.map((list, key) => (
+        <Link
+          key={key}
+          href={list === "home" ? "/" : `/${list}`}
+          className={
+            currentUrl === `/${list}` ? "text-teal-600" : "text-gray-400"
+          }
+        >
+          <h1 className="capitalize">{list}</h1>
+        </Link>
+      ))}
     </>
   );
 };

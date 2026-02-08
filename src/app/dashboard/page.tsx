@@ -63,9 +63,9 @@ const DashboardPage = async () => {
         {tours && tours.length >= 1 ? (
           <div>
             <h1 className="text-2xl my-3">
-              {`you have ${tours.length} trips, 3 tours are upcoming! :-`}
+              {`you have ${tours.length} trips, ${upcomingTrips.length} tours are upcoming! :-`}
             </h1>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {upcomingTrips.map((tour) => (
                 <EventCard key={tour.id} tour={tour} />
               ))}
@@ -76,7 +76,7 @@ const DashboardPage = async () => {
               <h1 className="text-2xl my-3 text-gray-500">
                 {`Congratulations! for your ${PastTrips.length} last trip you already visited:-`}
               </h1>
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2">
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {PastTrips.map((tour) => (
                   <EventCard key={tour.id} tour={tour} />
                 ))}

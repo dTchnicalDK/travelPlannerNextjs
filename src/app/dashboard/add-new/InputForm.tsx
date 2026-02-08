@@ -108,7 +108,7 @@ export function InputForm() {
                       sizes="200"
                       className="rounded-lg py-5"
                     />
-                  )}
+                  )}{" "}
                   <UploadButton
                     endpoint="imageUploader"
                     onClientUploadComplete={(res) => {
@@ -123,6 +123,7 @@ export function InputForm() {
                       // Do something with the error.
                       alert(`ERROR! ${error.message}`);
                     }}
+                    className=" font-bold bg-teal-500 px-10 py-2 rounded-xl"
                   />
                 </main>
                 {/* Hidden input to store imageUrl for form submission */}
